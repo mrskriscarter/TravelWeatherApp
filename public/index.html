@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Travel Weather App </title>
+        <link rel = "stylesheet" href = "style.css">
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100|Yanone+Kaffeesatz&display=swap" rel="stylesheet">        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+
+    <body>
+        <div id ="app">
+            
+            <h1>Travel</h1>
+            <canvas id="clear-day"></canvas>
+            <h1>Weather App</h1>
+            
+            <h2> The only Travel App you will EVER need</h2>
+            <div id ="maincontainer">
+            <div>
+                <input type ="text" id ="startingloc" name ="startingloc" v-model="startLocation" value ="Starting Location"><br>
+                <input type ="text" id ="endingloc" name ="endingloc" v-model="endLocation" value ="Ending Location"><br><br>
+                <h4>How Many Checkpoints?</h4><br>
+                <input type="number" min="2" max="10" value="2" v-model="checkpoints"/><br><br><br>
+                <h4>Date</h4>
+                <input type= "date" id= "dateoftravel" name= "dateoftravel" placeholder="Date"><br>
+                <input type= "submit" v-on:click="getLocations"><br>
+
+            </div>
+                
+            </div>
+            {{ testdata }}
+        </div>
+
+
+
+
+
+
+
+        </div> 
+
+    </body>
+    <script src="https://rawgithub.com/darkskyapp/skycons/master/skycons.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src ="/vue.js"></script>
+    <script src="/app.js"></script>
+    <script src="/script.js"></script>
+
+</html>
