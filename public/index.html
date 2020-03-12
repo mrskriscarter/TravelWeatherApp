@@ -8,18 +8,21 @@
 
     <body>
         <div id ="app">
-            
+            <div id ="maincontainer" v-show="isMainPage">
             <h1>Travel</h1>
             <canvas id="clear-day"></canvas>
             <h1>Weather App</h1>
             
             <h2> The only Travel App you will EVER need</h2>
-            <div id ="maincontainer">
+            
             <div>
                 <input type ="text" id ="startingloc" name ="startingloc" v-model="startLocation" value ="Starting Location"><br>
                 <input type ="text" id ="endingloc" name ="endingloc" v-model="endLocation" value ="Ending Location"><br><br>
                 <h4>How Many Checkpoints?</h4><br>
-                <input type="number" min="2" max="10" value="2" v-model="checkpoints"/><br><br><br>
+                <button id="subButton">-</button>
+                <input type="number" min="2" max="10" v-model="checkpoints" value="2"/><br>
+                <button id="addButton">+</button>
+                <br><br>
                 <h4>Date</h4>
                 <input type= "date" id= "dateoftravel" name= "dateoftravel" placeholder="Date"><br>
                 <input type= "submit" v-on:click="getLocations"><br>
@@ -27,7 +30,43 @@
             </div>
                 
             </div>
-            {{ testdata }}
+            <div id="secondpage" v-show="isSecondPage">
+                <div id="bar">
+                    <button v-on:click="backButton1">Back</button>
+                    <h3> Travel Weather App </h3>
+                </div>
+            <div v-for="location in filteredlocations">
+                    
+                        <div id="container" v-on:click="moreInfo">
+                        <div id="block1">
+                            <h2>Morning</h2>
+                        </div>
+                        <div id="block2">
+                            <h2>Afternoon</h2>
+                            
+                        </div>
+                        <div id="block3">
+                            <h2>Evening</h2>
+                        </div>
+                        <h5>{{location.name.city}}</h5>
+                        </div>
+
+                    </div>
+
+            </div>
+        
+
+            <div id="thirdpage" v-show="isThirdPage">
+                <div id="bar">
+                    <button v-on:click="backButton2">Back</button>
+                    <h3> Travel Weather App </h3>
+                </div>
+
+              
+
+
+
+            </div>
         </div>
 
 
