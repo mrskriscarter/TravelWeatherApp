@@ -24,7 +24,7 @@
                 <button id="addButton">+</button>
                 <br><br>
                 <h4>Date</h4>
-                <input type= "date" id= "dateoftravel" name= "dateoftravel" placeholder="Date"><br>
+                <input type= "date" id= "dateoftravel" v-model="dayoftravel"  v-bind:min="minDateOfTravel"  v-bind:max="maxDateOfTravel" name= "dateoftravel" placeholder="Date"><br>
                 <input type= "submit" v-on:click="getLocations"><br>
 
             </div>

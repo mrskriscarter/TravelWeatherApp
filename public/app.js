@@ -33,14 +33,22 @@ async function GetCheckPoints(processedPoints, checkpoints) {
 
 };
 
-    async function GetGeo(latitude, longitude) {
-        let url = await fetch(`https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json?prox=${latitude}%2C${longitude}%2C3000&mode=retrieveAddresses&maxresults=1&gen=9&apiKey=Sqppyp13Y687AczP7Aw-2qZMXksmAz6isqVUFbq-wxo`);
-        let jsonResponse = await url.json();
-        let address = jsonResponse.Response.View[0].Result[0].Location.Address;
-        return {'city': address.City, 'state': address.State}
-    };
+async function GetGeo(latitude, longitude) {
+    let url = await fetch(`https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json?prox=${latitude}%2C${longitude}%2C3000&mode=retrieveAddresses&maxresults=1&gen=9&apiKey=Sqppyp13Y687AczP7Aw-2qZMXksmAz6isqVUFbq-wxo`);
+    let jsonResponse = await url.json();
+    let address = jsonResponse.Response.View[0].Result[0].Location.Address;
+    return {'city': address.City, 'state': address.State}
+};
 
+function DateToIsoDate(date) {
+    return date.toISOString().split("T")[0]
+}
 
+Date.prototype.addDays = function(days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+}
 
 var app = new Vue({
     el: '#app',
@@ -51,6 +59,9 @@ var app = new Vue({
         endLocation: "Logan",
         checkpoints: 0,
         filteredlocations: [],
+        dayoftravel: DateToIsoDate(new Date()),
+        minDateOfTravel: DateToIsoDate(new Date()),
+        maxDateOfTravel: DateToIsoDate(new Date().addDays(15)),
         isSecondPage: false,
         isThirdPage: false,
         isMainPage: true,
@@ -63,6 +74,7 @@ var app = new Vue({
 
         getLocations: async function() {
             console.log(this.checkpoints);
+            console.log(this.dayoftravel)
             var locations = await GetLocations(this.startLocation, this.endLocation);
             var filteredlocations = await GetCheckPoints(locations, this.checkpoints);
             //this.filteredlocations = filteredlocations;
