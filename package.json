@@ -10,6 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "vue": "^2.6.11"
+    "moment": "^2.24.0",
+    "vue": "^2.6.11",
+    "vuejs-datepicker": "^1.6.2"
   }
 }

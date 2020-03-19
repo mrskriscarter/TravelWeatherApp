@@ -1,2 +1,4 @@
 
-GET https://open.mapquestapi.com/directions/v2/route?key=UIyBXWhvrdRUNfGmAGD4U4sR5FGtykWq&fullShape=true&from=st%20george%20ut&to=west%20jordan%20ut")
+//GET https://weather.ls.hereapi.com/weather/1.0/report.json?product=forecast_hourly&latitude=37.0965&longitude=-113.5684&oneobservation=true&apiKey=Sqppyp13Y687AczP7Aw-2qZMXksmAz6isqVUFbq-wxo&metric=false
+
+GET https://weather.ls.hereapi.com/weather/1.0/report.json?product=forecast_7days&latitude=37.0965&longitude=-113.5684&oneobservation=true&apiKey=Sqppyp13Y687AczP7Aw-2qZMXksmAz6isqVUFbq-wxo&metric=false

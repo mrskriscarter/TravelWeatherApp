@@ -24,7 +24,7 @@
                 <button id="addButton">+</button>
                 <br><br>
                 <h4>Date</h4>
-                <input type= "date" id= "dateoftravel" name= "dateoftravel" placeholder="Date"><br>
+                <input type= "date" id= "dateoftravel" v-model= "dayoftravel" v-bind:min="minDateOfTravel" v-bind:max="maxDateOfTravel" placeholder="Date"><br>
                 <input type= "submit" v-on:click="getLocations"><br>
 
             </div>
@@ -40,6 +40,8 @@
                         <div id="container" v-on:click="moreInfo">
                         <div id="block1">
                             <h2>Morning</h2>
+                            {{location.forcast[0].temperature}}
+                            
                         </div>
                         <div id="block2">
                             <h2>Afternoon</h2>
@@ -49,6 +51,7 @@
                             <h2>Evening</h2>
                         </div>
                         <h5>{{location.name.city}}</h5>
+
                         </div>
 
                     </div>
@@ -60,6 +63,8 @@
                 <div id="bar">
                     <button v-on:click="backButton2">Back</button>
                     <h3> Travel Weather App </h3>
+
+                    
                 </div>
 
               
@@ -80,8 +85,8 @@
     </body>
     <script src="https://rawgithub.com/darkskyapp/skycons/master/skycons.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src ="/vue.js"></script>
+    <script src ="vue.js"></script>
     <script src="/app.js"></script>
-    <script src="/script.js"></script>
+    <script src="script.js"></script>
 
 </html>
