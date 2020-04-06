@@ -9,7 +9,6 @@ async function GetLocations(startLocation, endLocation) {
     //console.log("first request response", responseJson);
     // var routePoints = await fetch(`https://open.mapquestapi.com/directions/v2/routeshape?key=UIyBXWhvrdRUNfGmAGD4U4sR5FGtykWq&fullShape=true&sessionId=${responseJson.route.sessionId}`);
     var routePoints = await fetch(`https://open.mapquestapi.com/directions/v2/routeshape?key=UIyBXWhvrdRUNfGmAGD4U4sR5FGtykWq&fullShape=true&sessionId=${responseJson.route.sessionId}`);
-    // Session ID?
     var routePointsJson = await routePoints.json();
     //console.log(routePointsJson);
     var gpsCoordinates = routePointsJson.route.shape.shapePoints;
@@ -42,7 +41,7 @@ async function GetCheckPoints(processedPoints, checkpoints) {
         return {'city': address.City, 'state': address.State}
     };
 
-    async function getWeatherForecastForLocation(latitude, longitude) {
+    async function getHourlyWeatherForecastForLocation(latitude, longitude) {
         let forecast =`https://weather.ls.hereapi.com/weather/1.0/report.json?product=forecast_hourly&latitude=${latitude}&longitude=${longitude}&oneobservation=true&apiKey=${hereKey}&metric=false`
         let forcastResponse = await fetch(forecast);
         let forcastJsonRespnse = await forcastResponse.json();
@@ -52,6 +51,37 @@ async function GetCheckPoints(processedPoints, checkpoints) {
 
     };
 
+    //does the date match and grab all the hours. just matching date
+
+    async function getDaySegmentWeatherForecastForLocation(latitude, longitude) {
+        let segment =`https://weather.ls.hereapi.com/weather/1.0/report.json?product=forecast_7days&latitude=${latitude}&longitude=${longitude}&oneobservation=true&apiKey=${hereKey}&metric=false`
+        let segmentResponse = await fetch(segment);
+        let segmentJsonResponse = await segmentResponse.json();
+
+        return segmentJsonResponse.forecasts.forecastLocation.forecast
+        //icons = return `${filteredlocations[index].iconLink}?apiKey=${hereKey}`
+        
+
+
+    };
+
+    function dateSegment(dayoftravel, findDate){
+        let apiFoundDate = findDate[0];
+        dayWeatherSegment = []
+        for(index = 0; index < findDate.length; index++){
+            if (dayoftravel == findDate[index].utcTime.split("T")[0]){
+                if (findDate[index].daySegment != "Night"){
+                    dayWeatherSegment.push(findDate[index]);
+            }}
+        };
+
+        return dayWeatherSegment
+            
+    };
+
+    //Function that passes the data returned from day segements , pass in day of travel
+    //if date = and daysegment then return and(daySegment is not evening)
+
     function DateToIsoDate(date) {
         return date.toISOString().split("T")[0]
     };
@@ -60,16 +90,7 @@ async function GetCheckPoints(processedPoints, checkpoints) {
         var date = new Date(this.valueOf());
         date.setDate(date.getDate() + days);
         return date;
-    }
-
-    // async function loopThurDates() {
-    //     let inputDate = userDate;
-    //     let hereDate = `https://weather.ls.hereapi.com/weather/1.0/report.json?product=forecast_7days&latitude=${latitude}&longitude=${longitude}&oneobservation=true&apiKey=${hereKey}&metric=false`
-    //     let hereDateResponse = await fetch(hereDate);
-    //     let hereDateJsonResponse = await hereDateResponse.json();
-
-
-    // }
+    };
  
 
 
@@ -84,7 +105,7 @@ var app = new Vue({
         filteredlocations: [],
         dayoftravel: DateToIsoDate(new Date()),
         minDateOfTravel: DateToIsoDate(new Date()),
-        maxDateOfTravel: DateToIsoDate(new Date().addDays(15)),
+        maxDateOfTravel: DateToIsoDate(new Date().addDays(5)),
         isSecondPage: false,
         isThirdPage: false,
         isMainPage: true,
@@ -103,14 +124,15 @@ var app = new Vue({
             for (index in filteredlocations) {
                 //console.log(filteredlocations[index]);
                 filteredlocations[index].name = await GetGeo(filteredlocations[index].coordinate.latitude, filteredlocations[index].coordinate.longitude);
-                //filteredlocations[index].forcast = await getWeatherForecastForLocation(filteredlocations[index].coordinate.latitude, filteredlocations[index].coordinate.longitude);
-                
+                filteredlocations[index].forcast = dateSegment(this.dayoftravel, await getDaySegmentWeatherForecastForLocation(filteredlocations[index].coordinate.latitude, filteredlocations[index].coordinate.longitude));
+    
             }
             this.filteredlocations = filteredlocations;
-            console.log("filtered", filteredlocations);
     
+            console.log("filtered", filteredlocations);
+         
 
-
+         
             //console.log(filteredlocations[1].name.city)
             //var gps = await GetGeo(locations[0].latitude, locations[0].longitude);
             //console.log("locations", locations);
@@ -120,15 +142,18 @@ var app = new Vue({
             this.isThirdPage = false
             
         },
+
+        
+
         backButton1: function () {
-                this.SecondPage = false,
+                this.isSecondPage = false,
                 this.isMainPage = true,
                 this.isThirdPage = false
         },
 
         backButton2: function () {
             this.isThirdPage = false,
-            this.SecondPage = true,
+            this.isSecondPage = true,
             this.isMainPage = false
     },
         formatDate: function (userDate) {
@@ -138,7 +163,7 @@ var app = new Vue({
 
         moreInfo: function () {
             this.isMainPage = false,
-            this.SecondPage = false,
+            this.isSecondPage = false,
             this.isThirdPage = true
         }
 

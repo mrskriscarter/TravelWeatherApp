@@ -1,13 +1,16 @@
 * {
-    margin: 0px;
+    margin: 0px
 }
 
 
 h1 {
     font-family: 'Yanone Kaffeesatz';
-    font-size: 5em;
+    font-size: 4em;
     padding: 10px;
     color: white;
+    grid-column: 1/10;
+    grid-row: 1;
+    padding-bottom: 40px;
 
 }
 
@@ -16,8 +19,9 @@ h2 {
     font-family: 'Raleway';
     font-size: 1.1em;
     padding: 10px;
-    margin-top: -15px;
     color: black;
+    grid-row: 2;
+    grid-column: 2/10;
     
 
 }
@@ -25,30 +29,44 @@ h2 {
 h4 {
     font-family: 'Raleway';
     font-weight: 700;
-    font-size: 1.5em;
+    font-size: 1.2em;
+    margin: none;
 }
 
 
 /*Main Page */
 
 #maincontainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-columns:  repeat(20, 10%); 
+    grid-template-rows: repeat(20, 10%); 
     background-color: #488ce0;
+    padding: 10px;
+    justify-items: center;
     
+}
+
+
+/* SkyCons */
+#clear-day {
+    grid-column: 5;
+    grid-row: 1;
+    height: 70px;
+
 }
 
 /* Form */
 
-form {
-    padding: 5px;
-    width:75%
+#form {
+    grid-row-start: 3;
+    grid-column: 1/9;
+    padding: 15px;
+    margin: unset;
 }
 
 input {
     padding: 10px;
-    margin: 10px;
+    
 }
 
 input[type=text] {
@@ -59,6 +77,7 @@ input[type=text] {
     padding: 12px 5px;
     margin: 8px 0;
     border: none;
+    border-radius: 10px;
     -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     -ms-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -72,6 +91,7 @@ input[type=submit] {
     font-size: 1.5em;
     margin: 8px 0px;
     background-color: #FFD85C;
+    border-radius: 10px;
     -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     -ms-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -86,6 +106,7 @@ input[type=date]{
     font-weight: 700;
     font-size: 1.5em;
     margin: 8px 0px;
+    border-radius: 10px;
     -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     -ms-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -94,14 +115,84 @@ input[type=date]{
     border: none;
 }
 
+input[type=number] {
+    float: left;
+    width: 70px;
+    height: 35px;
+    padding: 0;
+    margin: 5px;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    text-align: center;
+    color: black;
+    background: white;
+    outline: none;
+    pointer-events: none;
+    font-family: 'Raleway';
+    font-weight: 600;
+    border-radius: 10px;
+    -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    -ms-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    -o-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    border:none;
+    
+  }
+  #minus{
+    background-color: white;
+    width: 30px;
+    height: 30px;
+    float: left;
+    border-radius: 200px;
+    -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    -ms-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    -o-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    margin: 5px;
+}
+
+#plus{
+    background-color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 200px;
+    -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    -ms-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    -o-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    margin: 5px;
+
+}
+
+/*<canvas id="clear-day"></canvas>
+
 
 /* Second Page*/
+
 #bar {
-    background-color: #488ce0
+    background-color: #488ce0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    height: 40px;
     
 }
 h3 {
     font-family: 'Raleway';
+    grid-column: 2/4;
+    color: white;
+    text-align: center;
+    padding-top: 7px;
+}   
+
+#backbutton {
+    color:white;
+    background-color: #488ce0;
+    border: none;
+
 }
 
 h5{
@@ -134,101 +225,28 @@ h5{
     border-top-right-radius: 10px;
 }
 
+#miniDate {
+    font-size: 1em;
+    padding: 4px;
+    float: right;
+    align-content: right;
+}
+
+#miniDateSubmit {
+    font-size: 1em;
+    padding: 4px;
+    float:right;
+    align-content: right;
+}
+
+#secondcontainer {
+
+}
 /* Third Page */
 
 
 
 
 
-/* SkyCons */
-#clear-day {
-    position: absolute;
-    height: 100px;
-    left: 120px;
-    top: 5px;
-}
 
 
-
-
-
-/* Form Number Stepper */
-input[type=number] {
-    float: left;
-    width: 70px;
-    height: 35px;
-    padding: 0;
-    font-size: 1.5em;
-    text-transform: uppercase;
-    text-align: center;
-    color: black;
-    background: white;
-    outline: none;
-    pointer-events: none;
-    font-family: 'Raleway';
-    font-weight: 600;
-    -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    -ms-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    -o-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    border:none;
-    
-  }
-  
-  span.spinner {
-    position: absolute;
-    height: 40px;
-    user-select: none;
-    -ms-user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -webkit-touch-callout: none;
-    
-    
-  }
-  
-  span.spinner > .sub,
-  span.spinner > .add {
-    float: left;
-    display: block;
-    width: 35px;
-    height: 35px;
-    text-align: center;
-    font-family: 'Raleway';
-    font-weight: 500;
-    font-size: 2em;
-    line-height: 35px;
-    color: black;
-    border: none;
-    background-color: white;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: 0.1s linear;
-    -o-transition: 0.1s linear;
-    -ms-transition: 0.1s linear;
-    -moz-transition: 0.1s linear;
-    -webkit-transition: 0.1s linear;
-    margin-top: 8px;
-    -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    -ms-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    -o-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    
-  }
-  
-  span.spinner > .add {
-    top: 0;
-    border: none;
-    border-radius:20px;
-  }
-  
-  span.spinner > .sub:hover,
-  span.spinner > .add:hover {
-    background: white;
-    color: #25323B;
-  }
-   input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
-   -webkit-appearance: none;
-  }
