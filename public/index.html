@@ -42,7 +42,7 @@
                     <div id="miniDates">
                 <input type= "date" id= "miniDate" v-model= "dayoftravel" v-bind:min="minDateOfTravel" v-bind:max="maxDateOfTravel" placeholder="Date" >
 
-                    <input type= "submit" id="miniDateSubmit" v-on:click="getLocations"><br>
+                        <input type= "submit" id="miniDateSubmit" v-on:click="getLocations"><br>
             <div v-for="location in filteredlocations">
             </div>
                     
@@ -50,7 +50,7 @@
                         <div id="block1">
                             <h2>Morning</h2>
                             {{location.forcast[0].temperature}}
-                            <img v-bind:src="location.forcast[0].iconLink"><br>
+                            
                             
                             
                         </div>

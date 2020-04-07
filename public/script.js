@@ -13,6 +13,7 @@ plusButton.addEventListener('click', event => {
   const currentValue = Number(inputField.value) || 0;
   inputField.value = currentValue + 1;
 });
+
 // ////////////////////
 // // Number Stepper //
 // ////////////////////

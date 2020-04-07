@@ -122,21 +122,15 @@ var app = new Vue({
             var filteredlocations = await GetCheckPoints(locations, this.checkpoints);
             //this.filteredlocations = filteredlocations;
             for (index in filteredlocations) {
-                //console.log(filteredlocations[index]);
+               
                 filteredlocations[index].name = await GetGeo(filteredlocations[index].coordinate.latitude, filteredlocations[index].coordinate.longitude);
                 filteredlocations[index].forcast = dateSegment(this.dayoftravel, await getDaySegmentWeatherForecastForLocation(filteredlocations[index].coordinate.latitude, filteredlocations[index].coordinate.longitude));
     
             }
             this.filteredlocations = filteredlocations;
-    
             console.log("filtered", filteredlocations);
          
 
-         
-            //console.log(filteredlocations[1].name.city)
-            //var gps = await GetGeo(locations[0].latitude, locations[0].longitude);
-            //console.log("locations", locations);
-            //console.log("gps", gps );
             this.isSecondPage = true,
             this.isMainPage = false,
             this.isThirdPage = false
