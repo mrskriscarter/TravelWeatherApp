@@ -41,15 +41,7 @@ async function GetCheckPoints(processedPoints, checkpoints) {
         return {'city': address.City, 'state': address.State}
     };
 
-    async function getHourlyWeatherForecastForLocation(latitude, longitude) {
-        let forecast =`https://weather.ls.hereapi.com/weather/1.0/report.json?product=forecast_hourly&latitude=${latitude}&longitude=${longitude}&oneobservation=true&apiKey=${hereKey}&metric=false`
-        let forcastResponse = await fetch(forecast);
-        let forcastJsonRespnse = await forcastResponse.json();
 
-        return forcastJsonRespnse.hourlyForecasts.forecastLocation.forecast
-        
-
-    };
 
     //does the date match and grab all the hours. just matching date
 
@@ -59,10 +51,7 @@ async function GetCheckPoints(processedPoints, checkpoints) {
         let segmentJsonResponse = await segmentResponse.json();
 
         return segmentJsonResponse.forecasts.forecastLocation.forecast
-        //icons = return `${filteredlocations[index].iconLink}?apiKey=${hereKey}`
         
-
-
     };
 
     function dateSegment(dayoftravel, findDate){
@@ -109,6 +98,8 @@ var app = new Vue({
         isSecondPage: false,
         isThirdPage: false,
         isMainPage: true,
+
+        
       
  
     },
@@ -137,7 +128,33 @@ var app = new Vue({
             
         },
 
-        
+        backgroundColorFunction: function (forcastObject) {
+            alert = ["Thunderstorms", "Tornado", "Heavy Rain", "Lots of Rain", "Tons of Rain", "Flash Floods", "Strong Thunderstorms", "Severe Thunderstorms", "Hail", "Tropical Storm", "Hurricane", "Blizzard","Heavy Snow", "Snowstorm"  ]
+            rain = ["a few showers", "Rain", "Heavy Rain", "Drizzle", "Sprinkles", "Scattered Showers", "Light Showers", "Passing Showers", "Light Rain", "Rain Showers", "Numerous Showers", "Showery", "Widely Scattered TStorms", "Isolated TStorms", "A Few TStorms", "Thundershowers", "Thunderstorms", "Mixture of Precip", "Heavy Mixture of Precip"] 
+            snow = ["Sleet", "Snow", "Icy Mix", "Freezing Rain", "Snow Changing to Rain", "Snow Changing to an Icy Mix", "An Icy Mix Changing to Snow", "An Icy Mix Changing to Rain", "Rain Changing to Snow", "Scattered Flurries", "Rain Changing to an Icy Mix", "Snow Flurries", "Light Snow Showers", "Snow Showers", "Light Snow", "Moderate Snow" ]
+            
+            if (alert.indexOf(forcastObject.precipitationDesc) >= 0) {
+                return "alert"
+                
+            }
+            if (rain.indexOf(forcastObject.precipitationDesc) >= 0) {
+            
+                return "rain"
+            }
+            if (snow.indexOf(forcastObject.precipitationDesc) >= 0) {
+                return "snow"
+            }
+            else { 
+                return "normal"
+            }
+
+        },
+
+        iconText: function() {
+        if (element.classList.contains('rain')) {
+            
+          }
+        },
 
         backButton1: function () {
                 this.isSecondPage = false,
@@ -159,8 +176,20 @@ var app = new Vue({
             this.isMainPage = false,
             this.isSecondPage = false,
             this.isThirdPage = true
-        }
+        },
 
+        minusButton: function () {
+            event.preventDefault();
+            const currentValue = Number(inputField.value) || 0;
+            inputField.value = currentValue - 1;
+        },
+          
+        addButton: function () {
+            event.preventDefault();
+            const currentValue = Number(inputField.value) || 0;
+            inputField.value = currentValue + 1;
+          
+        },
     },
 
     created: function () {

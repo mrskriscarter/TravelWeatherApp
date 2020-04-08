@@ -19,9 +19,9 @@
                 <input type ="text" id ="endingloc" name ="endingloc" v-model="endLocation" value ="Ending Location"><br><br>
                 
                 <h4>How Many Checkpoints?</h4><br>
-                <button id="minus">−</button>               
-                <input type="number" min="2" max="10" v-model="checkpoints" value="2" id="input"/>
-                <button id="plus">+</button><br><br>
+                <button id="minus" v-on:click="minusButton">−</button>               
+                <input type="number" min="2" max="10" v-model="checkpoints" value="1" id="input"/>
+                <button id="plus"v-on:click="addButton">+</button><br><br>
 
                 <h4>Date</h4>
                 <input type= "date" v-model= "dayoftravel" v-bind:min="minDateOfTravel" v-bind:max="maxDateOfTravel" placeholder="Date"><br>
@@ -38,36 +38,43 @@
                     
 
                 </div>
-                <div id="secondcontainer">
+                
                     <div id="miniDates">
-                <input type= "date" id= "miniDate" v-model= "dayoftravel" v-bind:min="minDateOfTravel" v-bind:max="maxDateOfTravel" placeholder="Date" >
-
-                        <input type= "submit" id="miniDateSubmit" v-on:click="getLocations"><br>
-            <div v-for="location in filteredlocations">
-            </div>
+                        <input type= "date" id= "miniDate" v-model= "dayoftravel" v-bind:min="minDateOfTravel" v-bind:max="maxDateOfTravel" placeholder="Date" >
+                        <input type= "submit" id="miniDateSubmit" v-on:click="getLocations"><br> </div>
+            
+                        <div id="secondcontainer">
+                    <div v-for="location in filteredlocations">
                     
                         <div id="container" v-on:click="moreInfo">
-                        <div id="block1">
+                        <h5 id="locationName">{{location.name.city}}</h5>
+
+                        <div id="block1" v-bind:class="backgroundColorFunction(location.forcast[0])">
                             <h2>Morning</h2>
-                            {{location.forcast[0].temperature}}
-                            
-                            
+                            <img class="iconImage" v-bind:src="location.forcast[0].iconLink + '?apiKey=Sqppyp13Y687AczP7Aw-2qZMXksmAz6isqVUFbq-wxo'"><br>
+                            <h6 v-bind:class="iconText"></h6>
                             
                         </div>
-                        <div id="block2">
+
+                        <div id="block2" v-bind:class="backgroundColorFunction(location.forcast[1])">
                             <h2>Afternoon</h2>
-                            {{location.forcast[1].temperature}}
+                            <img class="iconImage" v-bind:src="location.forcast[1].iconLink + '?apiKey=Sqppyp13Y687AczP7Aw-2qZMXksmAz6isqVUFbq-wxo'"><br>
+                            
+
+                        </div>
+
+
+                        <div id="block3" v-bind:class="backgroundColorFunction(location.forcast[2])">
+                            <h2>Evening</h2>
+                            <img class="iconImage" v-bind:src="location.forcast[2].iconLink + '?apiKey=Sqppyp13Y687AczP7Aw-2qZMXksmAz6isqVUFbq-wxo'"><br>                        </div>
                             
                         </div>
-                        <div id="block3">
-                            <h2>Evening</h2>
-                            {{location.forcast[2].temperature}}
-                        </div>
-                        <h5>{{location.name.city}}</h5>
+                        
+                            
 
                         </div>
 
-                    </div>
+                    
 
             </div>
         </div>
