@@ -41,34 +41,35 @@
                 
                     <div id="miniDates">
                         <input type= "date" id= "miniDate" v-model= "dayoftravel" v-bind:min="minDateOfTravel" v-bind:max="maxDateOfTravel" placeholder="Date" >
-                        <input type= "submit" id="miniDateSubmit" v-on:click="getLocations"><br> </div>
+                        <input type= "submit" id="miniDateSubmit" v-on:click="getLocations"><br> 
+                    </div>
             
-                        <div id="secondcontainer">
+                    <div id="secondcontainer">
                     <div v-for="location in filteredlocations">
                     
-                        <div id="container" v-on:click="moreInfo">
-                        <h5 id="locationName">{{location.name.city}}</h5>
+                        <div id="container" v-on:click="moreInfo(location.coordinate, location.name)">
+                            <h5 id="locationName">{{location.name.city}}</h5>
 
-                        <div id="block1" v-bind:class="backgroundColorFunction(location.forcast[0])">
-                            <h2>Morning</h2>
-                            <img class="iconImage" v-bind:src="location.forcast[0].iconLink + '?apiKey=Sqppyp13Y687AczP7Aw-2qZMXksmAz6isqVUFbq-wxo'"><br>
-                            <h6 v-bind:class="iconText"></h6>
+                            <div id="block1" v-bind:class="backgroundColorFunction(location.forcast[0])">
+                                <h2>Morning</h2>
+                                <img class="iconImage" v-bind:src="location.forcast[0].iconLink + '?apiKey=Sqppyp13Y687AczP7Aw-2qZMXksmAz6isqVUFbq-wxo'"><br>
+                                <h6 id="iconText">{{iconText(location.forcast[0])}}</h6>
                             
-                        </div>
+                             </div>
 
-                        <div id="block2" v-bind:class="backgroundColorFunction(location.forcast[1])">
-                            <h2>Afternoon</h2>
-                            <img class="iconImage" v-bind:src="location.forcast[1].iconLink + '?apiKey=Sqppyp13Y687AczP7Aw-2qZMXksmAz6isqVUFbq-wxo'"><br>
-                            
+                            <div id="block2" v-bind:class="backgroundColorFunction(location.forcast[1])">
+                                <h2>Afternoon</h2>
+                                <img class="iconImage" v-bind:src="location.forcast[1].iconLink + '?apiKey=Sqppyp13Y687AczP7Aw-2qZMXksmAz6isqVUFbq-wxo'"><br>
+                                <h6 id="iconText">{{iconText(location.forcast[1])}}</h6>
 
-                        </div>
+                            </div>
 
 
-                        <div id="block3" v-bind:class="backgroundColorFunction(location.forcast[2])">
-                            <h2>Evening</h2>
-                            <img class="iconImage" v-bind:src="location.forcast[2].iconLink + '?apiKey=Sqppyp13Y687AczP7Aw-2qZMXksmAz6isqVUFbq-wxo'"><br>                        </div>
-                            
-                        </div>
+                            <div id="block3" v-bind:class="backgroundColorFunction(location.forcast[2])">
+                                <h2>Evening</h2>
+                                <img class="iconImage" v-bind:src="location.forcast[2].iconLink + '?apiKey=Sqppyp13Y687AczP7Aw-2qZMXksmAz6isqVUFbq-wxo'"><br>
+                                <h6 id="iconText">{{iconText(location.forcast[2])}}</h6>
+                            </div>
                         
                             
 
@@ -82,18 +83,27 @@
 
             <div id="thirdpage" v-show="isThirdPage">
                 <div id="bar">
-                    <button v-on:click="backButton2">Back</button>
+                    <button id="backbutton" v-on:click="backButton2"><i class="fa fa-arrow-left fa-2x"></i></button>
                     <h3> Travel Weather App </h3>
-
-                    
+                </div>
+                        
+                <div id="miniDates">
+                    <input type= "date" id= "miniDate" v-model= "dayoftravel" v-bind:min="minDateOfTravel" v-bind:max="maxDateOfTravel" placeholder="Date" >
+                    <input type= "submit" id="miniDateSubmit" v-on:click="getLocations"><br> 
                 </div>
 
-              
 
+                <div id="morehourlydata">
+                    <div v-for="temp in threeHourTemp">
+                        
+                    <div>{{temp.Temp}}</div>
+                    <div>{{temp.Hour==12?temp.Hour:temp.Hour%12}} {{temp.Hour>=12?"pm":"am"}}</div>
 
+                    </div>
+                </div>
 
+            
             </div>
-        </div>
 
 
 
@@ -104,10 +114,9 @@
         </div> 
 
     </body>
-    <script src="https://rawgithub.com/darkskyapp/skycons/master/skycons.js"></script>
+   
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src ="vue.js"></script>
     <script src="/app.js"></script>
-    <script src="script.js"></script>
 
 </html>

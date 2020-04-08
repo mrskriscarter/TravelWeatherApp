@@ -176,17 +176,18 @@ input[type=number] {
 #bar {
     background-color: #488ce0;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 10% 90%;
     grid-template-rows: 1fr;
-    height: 40px;
+    height: 55px;
     
 }
 h3 {
     font-family: 'Raleway';
-    grid-column: 2/4;
+    grid-column: 2;
     color: white;
     text-align: center;
     padding-top: 7px;
+    font-size: 2em;
 }   
 
 #backbutton {
@@ -199,7 +200,7 @@ h3 {
 h5{
     font-family: 'Raleway';
     font-weight: 600;
-    font-size: 1.5em;
+    font-size: 3em;
     grid-column: 1/4;
     text-align: center;
     padding-top: 5px;
@@ -209,26 +210,24 @@ h5{
 
 #container {
     display: grid;
-    grid-template-rows: 50px 150px;
+    grid-template-rows: 70px 170px;
     grid-template-columns: 1fr 1fr 1fr;
     border-radius: 10px;
-    margin:10px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    margin: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
 #block1 {
     
     border-bottom-left-radius: 10px;
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 25% 75%;
     align-items: center;
     justify-items: center;
 }
 #block2 {
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 25% 75%;
+
     
     align-items: center;
     justify-items: center;
@@ -237,8 +236,7 @@ h5{
 }
 #block3 {
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 25% 75%;
+ 
     align-items: center;
     justify-items: center;
     
@@ -248,19 +246,24 @@ h5{
 #miniDate {
     font-size: 1em;
     padding: 4px;
-    float: right;
     align-content: right;
 }
 
 #miniDateSubmit {
     font-size: 1em;
     padding: 4px;
-    float:right;
     align-content: right;
+}
+
+#miniDates{
+    float:right;
+    padding-right: 10px;
+    margin-top: 5px;
 }
 
 .normal {
     background-color:white;
+    color: black;
 }
 
 .rain {
@@ -269,13 +272,18 @@ h5{
 .rain h2 {
     color:white;
 }
-
+.rain h6 {
+    color:white;
+}
 .snow {
     background-color: #9b9b9b;
-
 }
 
-.snow h2 {
+.snow h2{
+    color: white;
+}
+
+.snow h6 {
     color: white;
 }
 
@@ -283,12 +291,15 @@ h5{
     background-color: black;
 }
 
-.alert h2 {
+.alert h6 {
     color: red;
+}
+.alert h2 {
+    color: white;
 }
 
 #secondcontainer {
-    margin-top: 50px;
+    margin-top: 60px;
 }
 
 .iconImage {
@@ -296,6 +307,18 @@ h5{
     height: 70px;
 }
 
+#iconText {
+    font-family: 'Raleway';
+    font-size: 1.8em;
+    text-transform: uppercase;
+    padding-bottom: 10px;
+
+}
+#locationName {
+    background-color: #FFD85C;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
 
 /* Third Page */
 
