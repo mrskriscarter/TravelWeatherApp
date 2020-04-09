@@ -216,3 +216,4 @@ var app = new Vue({
         console.log("Vue is Ready.");
     }
 })
+
