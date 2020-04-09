@@ -79,39 +79,30 @@
 
             </div>
         </div>
-        
-
-            <div id="thirdpage" v-show="isThirdPage">
-                <div id="bar">
-                    <button id="backbutton" v-on:click="backButton2"><i class="fa fa-arrow-left fa-2x"></i></button>
-                    <h3> Travel Weather App </h3>
-                </div>
-                        
-                <div id="miniDates">
-                    <input type= "date" id= "miniDate" v-model= "dayoftravel" v-bind:min="minDateOfTravel" v-bind:max="maxDateOfTravel" placeholder="Date" >
-                    <input type= "submit" id="miniDateSubmit" v-on:click="getLocations"><br> 
-                </div>
-
-
-                <div id="morehourlydata">
-                    <div v-for="temp in threeHourTemp">
-                        
-                    <div>{{temp.Temp}}</div>
-                    <div>{{temp.Hour==12?temp.Hour:temp.Hour%12}} {{temp.Hour>=12?"pm":"am"}}</div>
-
-                    </div>
-                </div>
-
-            
+        </div> 
+        <div id="thirdpage" v-show="isThirdPage">
+            <div id="bar">
+                <button id="backbutton" v-on:click="backButton2"><i class="fa fa-arrow-left fa-2x"></i></button>
+                <h3> Travel Weather App </h3>
+            </div>
+                    
+            <div id="miniDates">
+                <input type= "date" id= "miniDate" v-model= "dayoftravel" v-bind:min="minDateOfTravel" v-bind:max="maxDateOfTravel" placeholder="Date" >
+                <input type= "submit" id="miniDateSubmit" v-on:click="getLocations"><br> 
             </div>
 
 
+            <div id="morehourlydata">
+                <div v-for="temp in threeHourTemp">
+                    
+                <div>{{temp.Temp}}</div>
+                <div>{{temp.Hour==12?temp.Hour:temp.Hour%12}} {{temp.Hour>=12?"pm":"am"}}</div>
 
+                </div>
+            </div>
 
-
-
-
-        </div> 
+        
+        </div>
 
     </body>
    
