@@ -4,110 +4,116 @@
         <title>Travel Weather App </title>
         <link rel = "stylesheet" href = "style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100|Yanone+Kaffeesatz&display=swap" rel="stylesheet">        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons">
+        <link href="https://fonts.googleapis.com/css?family=Raleway:200|Yanone+Kaffeesatz&family=Roboto&display=swap" rel="stylesheet">        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
-
+</div>
     <body>
         <div id ="app">
             
             <div id ="maincontainer" v-show="isMainPage">
-            <h1>Travel Weather App</h1>
-        
-                    
-            <div id="form">
-                <input type ="text" id ="startingloc" name ="startingloc" v-model="startLocation" value ="Starting Location"><br>
-                <input type ="text" id ="endingloc" name ="endingloc" v-model="endLocation" value ="Ending Location"><br><br>
-                
-                <h4>How Many Checkpoints?</h4><br>
-                <button id="minus" v-on:click="minusButton">−</button>               
-                <input type="number" min="2" max="10" v-model="checkpoints" value="1" id="input"/>
-                <button id="plus"v-on:click="addButton">+</button><br><br>
+                <h1>Travel Weather App</h1> 
 
-                <h4>Date</h4>
-                <input type= "date" v-model= "dayoftravel" v-bind:min="minDateOfTravel" v-bind:max="maxDateOfTravel" placeholder="Date"><br>
-                <input type= "submit" v-on:click="getLocations"><br>
-
-            </div>
+                    <div id="form">
+                        <input type ="text" id ="startingloc" name ="startingloc" v-model="startLocation" value ="Starting Location"><br>
+                        <input type ="text" id ="endingloc" name ="endingloc" v-model="endLocation" value ="Ending Location"><br><br>
+                        <h4>How Many Checkpoints?</h4><br>
+                        <input type="number" min="2" max="10" v-model="checkpoints" value="1" id="input"/><br>
+                        <input type= "date" v-model= "dayoftravel" v-bind:min="minDateOfTravel" v-bind:max="maxDateOfTravel" placeholder="Date"><br>
+                        <input type= "submit" v-on:click="getLocations"><br>
+                    </div>
                 
             </div>
+
 
             <div id="secondpage" v-show="isSecondPage">
                 <div id="bar">
                     <button id="backbutton" v-on:click="backButton1"><i class="fa fa-arrow-left fa-2x"></i></button>
                     <h3> Travel Weather App </h3>
-                    
-
                 </div>
                 
-                    <div id="miniDates">
-                        <input type= "date" id= "miniDate" v-model= "dayoftravel" v-bind:min="minDateOfTravel" v-bind:max="maxDateOfTravel" placeholder="Date" >
-                        <input type= "submit" id="miniDateSubmit" v-on:click="getLocations"><br> 
-                    </div>
+                <div id="miniDates">
+                    <input type= "date" id= "miniDate" v-model= "dayoftravel" v-bind:min="minDateOfTravel" v-bind:max="maxDateOfTravel" placeholder="Date" >
+                    <input type= "submit" id="miniDateSubmit" v-on:click="getLocations"><br> 
+                </div>
             
                     <div id="secondcontainer">
-                    <div v-for="location in filteredlocations">
+                        <div v-for="location in filteredlocations">
                     
-                        <div id="container" v-on:click="moreInfo(location.coordinate, location.name)">
-                            <h5 id="locationName">{{location.name.city}}</h5>
+                            <div id="container" v-on:click="moreInfo(location.coordinate, location.name.city)">
+                                <h5 id="locationName">{{location.name.city}}</h5>
 
-                            <div id="block1" v-bind:class="backgroundColorFunction(location.forcast[0])">
-                                <h2>Morning</h2>
-                                <img class="iconImage" v-bind:src="location.forcast[0].iconLink + '?apiKey=Sqppyp13Y687AczP7Aw-2qZMXksmAz6isqVUFbq-wxo'"><br>
-                                <h6 id="iconText">{{iconText(location.forcast[0])}}</h6>
-                            
-                             </div>
+                                    <div id="block1" v-bind:class="backgroundColorFunction(location.forcast[0])">
+                                        <h2>Morning</h2>
+                                        <img class="iconImage" v-bind:src="location.forcast[0].iconLink + '?apiKey=Sqppyp13Y687AczP7Aw-2qZMXksmAz6isqVUFbq-wxo'"><br>
+                                        <h6 id="iconText">{{iconText(location.forcast[0])}}</h6>
+                                    
+                                    </div>
 
-                            <div id="block2" v-bind:class="backgroundColorFunction(location.forcast[1])">
-                                <h2>Afternoon</h2>
-                                <img class="iconImage" v-bind:src="location.forcast[1].iconLink + '?apiKey=Sqppyp13Y687AczP7Aw-2qZMXksmAz6isqVUFbq-wxo'"><br>
-                                <h6 id="iconText">{{iconText(location.forcast[1])}}</h6>
+                                    <div id="block2" v-bind:class="backgroundColorFunction(location.forcast[1])">
+                                        <h2>Afternoon</h2>
+                                        <img class="iconImage" v-bind:src="location.forcast[1].iconLink + '?apiKey=Sqppyp13Y687AczP7Aw-2qZMXksmAz6isqVUFbq-wxo'"><br>
+                                        <h6 id="iconText">{{iconText(location.forcast[1])}}</h6>
 
+                                    </div>
+
+
+                                    <div id="block3" v-bind:class="backgroundColorFunction(location.forcast[2])">
+                                        <h2>Evening</h2>
+                                        <img class="iconImage" v-bind:src="location.forcast[2].iconLink + '?apiKey=Sqppyp13Y687AczP7Aw-2qZMXksmAz6isqVUFbq-wxo'"><br>
+                                        <h6 id="iconText">{{iconText(location.forcast[2])}}</h6>
+                                    </div>
                             </div>
-
-
-                            <div id="block3" v-bind:class="backgroundColorFunction(location.forcast[2])">
-                                <h2>Evening</h2>
-                                <img class="iconImage" v-bind:src="location.forcast[2].iconLink + '?apiKey=Sqppyp13Y687AczP7Aw-2qZMXksmAz6isqVUFbq-wxo'"><br>
-                                <h6 id="iconText">{{iconText(location.forcast[2])}}</h6>
-                            </div>
-                        
-                            
-
                         </div>
+                    </div>
+            </div> 
 
-                    
 
-            </div>
-        </div>
-        </div> 
         <div id="thirdpage" v-show="isThirdPage">
             <div id="bar">
                 <button id="backbutton" v-on:click="backButton2"><i class="fa fa-arrow-left fa-2x"></i></button>
                 <h3> Travel Weather App </h3>
             </div>
-                    
-            <div id="miniDates">
-                <input type= "date" id= "miniDate" v-model= "dayoftravel" v-bind:min="minDateOfTravel" v-bind:max="maxDateOfTravel" placeholder="Date" >
-                <input type= "submit" id="miniDateSubmit" v-on:click="getLocations"><br> 
+
+            <div id="thirdcontainer">
+                <h5>{{cityName}}</h5>
+
+                    <div id="morehourlydata">
+                        <div id="hours">
+                            <h4>Hourly Tempatures</h4> 
+                                <div id="hourlyloop">
+                                    <div class="hourloop" v-for="temp in threeHourTemp">
+                                        <div id="hourlytemp">{{temp.Temp}}&#176; </div>
+                                        <div id ="hourlytime">{{temp.Hour==12?temp.Hour:temp.Hour%12}} {{temp.Hour>=12?"pm":"am"}}</div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
             </div>
-
-
-            <div id="morehourlydata">
-                <div v-for="temp in threeHourTemp">
-                    
-                <div>{{temp.Temp}}</div>
-                <div>{{temp.Hour==12?temp.Hour:temp.Hour%12}} {{temp.Hour>=12?"pm":"am"}}</div>
-
+            
+                <div id="rainchart">
+                    <h4> Rain Probabilty </h4>
+                    <canvas id="rainprop"></canvas>
                 </div>
-            </div>
+  
+                <div id="snowchart">
+                    <h4> Snow Probabilty </h4>
+                    <canvas id="snowprop"></canvas>
+                </div>
+
+        </div>
+
+            </div> 
 
         
         </div>
 
     </body>
-   
+  
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src ="vue.js"></script>
     <script src="/app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <script src="https://unpkg.com/vue-chartjs/dist/vue-chartjs.min.js"></script>
 
 </html>

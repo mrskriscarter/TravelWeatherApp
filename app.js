@@ -1,5 +1,6 @@
 const hereKey = "Sqppyp13Y687AczP7Aw-2qZMXksmAz6isqVUFbq-wxo"
 
+
 // GET LONGITUDE AND LATITUDE LOCATIONS 
 async function GetLocations(startLocation, endLocation) {
     startLocation = encodeURIComponent(startLocation);
@@ -91,7 +92,32 @@ async function GetCheckPoints(processedPoints, checkpoints) {
         date.setDate(date.getDate() + days);
         return date;
     };
+
+// Rain Hour Function
+    function getRain(hourlyForecasts) {
+        raindata = []
+        for(index = 0; index < hourlyForecasts.length; index++){
+            var HourlyTime = hourlyForecasts[index].localTime.substring(0,2);
+            var RainProb = hourlyForecasts[index].rainFall != '*' ? hourlyForecasts[index].precipitationProbability : 0;
+            raindata.push({'HourlyTime': HourlyTime, 'RainProb': RainProb});
+
+        }
+        return raindata;
+    };
  
+    // Snow Hour Function
+    function getSnow(hourlyForecasts) {
+        snowdata = []
+        for(index = 0; index < hourlyForecasts.length; index++){
+            var HourlyTime = hourlyForecasts[index].localTime.substring(0,2);
+            var SnowProb = hourlyForecasts[index].SnowProb != '*' ? hourlyForecasts[index].precipitationProbability : 0;
+            snowdata.push({'HourlyTime': HourlyTime, 'SnowProb': SnowProb});
+
+        }
+        return snowdata;
+    };
+ 
+
 
 
 
@@ -99,8 +125,8 @@ var app = new Vue({
     el: '#app',
     data: {
 
-        startLocation: "St George",
-        endLocation: "Logan",
+        startLocation: "St George UT",
+        endLocation: "Logan UT",
         checkpoints: 0,
         filteredlocations: [],
         dayoftravel: DateToIsoDate(new Date()),
@@ -111,6 +137,8 @@ var app = new Vue({
         isMainPage: true,
         hourlydata: [],
         threeHourTemp: [],
+        cityName: ""
+    
  
     },
 
@@ -140,21 +168,28 @@ var app = new Vue({
             var morelocations = hourlyDate(this.dayoftravel, await getHourlyWeatherForecastForLocation(coordinate.latitude, coordinate.longitude));
             this.hourlydata = morelocations;
             this.threeHourTemp = []
+            this.cityName = name
 
             for (index=6; index<=21; index+=3) {
-                this.threeHourTemp.push({Temp:Math.floor(this.hourlydata[index].temperature), Hour:index}); 
+                this.threeHourTemp.push({Temp:Math.floor(this.hourlydata[index].temperature), Hour:index})
             }
+
+            var RainData = getRain(morelocations);
+            var SnowData = getSnow(morelocations);
+
 
             this.isMainPage = false,
             this.isSecondPage = false,
-            this.isThirdPage = true
+            this.isThirdPage = true,
+            this.createRainChart('rainprop', RainData);
+            this.createSnowChart('snowprop', SnowData);
         },
 
         // BACKGROUND COLOR FUNCTION DEPENDS ON WEATHER
         backgroundColorFunction: function (forcastObject) {
-            alert = ["Thunderstorms", "Tornado", "Heavy Rain", "Lots of Rain", "Tons of Rain", "Flash Floods", "Strong Thunderstorms", "Severe Thunderstorms", "Hail", "Tropical Storm", "Hurricane", "Blizzard","Heavy Snow", "Snowstorm"  ]
-            rain = ["a few showers", "Rain", "Heavy Rain", "Drizzle", "Sprinkles", "Scattered Showers", "Light showers", "Passing Showers", "Light Rain", "Rain Showers", "Numerous Showers", "Showery", "Widely Scattered TStorms", "Isolated TStorms", "A Few TStorms", "Thundershowers", "Thunderstorms", "Mixture of Precip", "Heavy Mixture of Precip", "Light Rain"] 
-            snow = ["Sleet", "Snow", "Icy Mix", "Freezing Rain", "Snow Changing to Rain", "Snow Changing to an Icy Mix", "An Icy Mix Changing to Snow", "An Icy Mix Changing to Rain", "Rain Changing to Snow", "Scattered Flurries", "Rain Changing to an Icy Mix", "Snow Flurries", "Light Snow Showers", "Snow Showers", "Light Snow", "Moderate Snow" ]
+            alert = ["Thunderstorms", "Tornado", "Heavy rain", "Lots of rain", "Tons of rain", "Flash floods", "Strong thunderstorms", "Severe thunderstorms", "Hail", "Tropical storm", "Hurricane", "Blizzard","Heavy snow", "Snowstorm"  ]
+            rain = ["a few showers", "Rain", "Heavy rain", "Drizzle", "Sprinkles", "Scattered showers", "Light showers", "Passing showers", "Light rain", "Rain showers", "Numerous showers", "Showery", "Widely scattered TStorms", "Isolated TStorms", "A few TStorms", "Thundershowers", "Thunderstorms", "Mixture of precip", "Heavy mixture of precip", "Light Rain"] 
+            snow = ["Sleet", "Snow", "Icy mix", "Freezing rain", "Snow changing to rain", "Snow changing to an icy mix", "An icy mix changing to snow", "An icy mix changing to rain", "Rain changing to snow", "Scattered flurries", "Rain changing to an icy mix", "Snow flurries", "Light snow showers", "Snow showers", "Light snow", "Moderate snow" ]
             
             if (alert.indexOf(forcastObject.precipitationDesc) >= 0) {
                 return "alert"
@@ -186,6 +221,100 @@ var app = new Vue({
             }
         },
 
+        //Charts 
+         createRainChart(rainprop, rainChartData) {
+             const rain = document.getElementById(rainprop);
+             const myChart = new Chart(rain, {
+                type: 'line',
+                data: {
+                  labels: rainChartData.map((data)=>{
+                      if (data.HourlyTime == 12 || data.HourlyTime == 0) {
+                          return 12
+                      }
+                      else {
+                          return data.HourlyTime%12
+      
+                      }
+                      
+                    }),
+                
+                  datasets: [
+                    { 
+                      label: 'Chance of Rain',
+                      data: rainChartData.map((data)=> data.RainProb),
+                      backgroundColor: [
+                        'rgba(72 140 224)',
+                      ],
+                      borderColor: [
+                        'rgba(72 140 224)',
+                      ],
+                      borderWidth: 2
+                    }
+                  ]
+                },
+                options: {
+                  responsive: true,
+                  lineTension: 1,
+                  scales: {
+                    yAxes: [{
+                      ticks: {
+                        beginAtZero: true,
+                        max: 100,
+                        padding: 1,
+                      }
+                    }]
+                  }
+                }
+         }
+             )},
+                
+             createSnowChart(snowprop, snowChartData) {
+                const snow = document.getElementById(snowprop);
+                const myChart = new Chart(snow, {
+                   type: 'line',
+                   data: {
+                     labels: snowChartData.map((data)=>{
+                         if (data.HourlyTime == 12 || data.HourlyTime == 0) {
+                             return 12
+                         }
+                         else {
+                             return data.HourlyTime%12
+         
+                         }
+                         
+                       }),
+                   
+                     datasets: [
+                       { 
+                         label: 'Chance of Snow',
+                         data: snowChartData.map((data)=> data.SnowProb),
+                         backgroundColor: [
+                           '#9b9b9b',
+                         ],
+                         borderColor: [
+                           '#9b9b9b',
+                         ],
+                         borderWidth: 1
+                       }
+                     ]
+                   },
+                   options: {
+                     responsive: true,
+                     lineTension: 1,
+                     scales: {
+                       yAxes: [{
+                         ticks: {
+                           beginAtZero: true,
+                           max: 100,
+                           padding: 1,
+                         }
+                       }]
+                     }
+                   }
+            }
+                )},
+                
+
         backButton1: function () {
                 this.isSecondPage = false,
                 this.isMainPage = true,
@@ -202,13 +331,14 @@ var app = new Vue({
             event.preventDefault();
             const currentValue = Number(inputField.value) || 0;
             inputField.value = currentValue - 1;
+            
         },
           
         addButton: function () {
             event.preventDefault();
             const currentValue = Number(inputField.value) || 0;
             inputField.value = currentValue + 1;
-          
+            
         },
     },
 
