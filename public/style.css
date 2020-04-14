@@ -2,7 +2,6 @@
     margin: 0px
 }
 
-
 h1 {
     font-family: 'Yanone Kaffeesatz';
     font-size: 4em;
@@ -13,7 +12,6 @@ h1 {
     padding-bottom: 40px;
 
 }
-
 
 h2 {
     font-family: 'Raleway';
@@ -35,6 +33,10 @@ h4 {
 }
 
 
+
+
+
+
 /*Main Page */
 
 #maincontainer {
@@ -48,14 +50,6 @@ h4 {
     
 }
 
-
-/* SkyCons */
-#clear-day {
-    grid-column: 5;
-    grid-row: 1;
-    height: 70px;
-
-}
 
 /* Form */
 
@@ -174,7 +168,9 @@ input[type=number] {
 
 }
 
-/*<canvas id="clear-day"></canvas>
+
+
+
 
 
 /* Second Page*/
@@ -322,6 +318,9 @@ h3 {
 }
 
 /* Third Page */
+
+
+
 
 #hours {
     border-radius: 10px;
