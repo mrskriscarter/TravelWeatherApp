@@ -125,8 +125,8 @@ var app = new Vue({
     el: '#app',
     data: {
 
-        startLocation: "St George UT",
-        endLocation: "Logan UT",
+        startLocation: "Starting Location",
+        endLocation: "Ending Location",
         checkpoints: 0,
         filteredlocations: [],
         dayoftravel: DateToIsoDate(new Date().addDays(1)),
