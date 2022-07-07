@@ -12,7 +12,7 @@
     "@chenfengyuan/vue-number-input": "^1.2.1",
     "chart.js": "^2.9.3",
     "express": "^4.17.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "vue": "^2.6.11",
     "vue-chartjs": "^3.5.0",
     "vue-material": "^1.0.0-beta-11",
